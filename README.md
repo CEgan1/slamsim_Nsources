@@ -42,7 +42,7 @@ The output will be summary statistic files .sumstat. For each simulations, they 
 Example with 5 populations:
 ---------------------
 <p><strong>Extend parameters files to make them compatible (8 theoretical sources)</strong></p>
-<p><code>./extend_parfiles.py --path test</code></p>
+<p><code>./extend_parfiles.py --path test/</code></p>
 <p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes only:</strong></p>
 <p>You may need to modify authorizations for the scripts by running: <code>chmod +x *</code> in the slamsim folder.</p>
 <p>Then run the following in the slamsim folder:</p>
