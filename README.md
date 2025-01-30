@@ -15,7 +15,7 @@ Required softwares and packages:
 
 To launch script, run :
 -----------------------
-<code>./SLAMSim.py --slim_sim slim_sim.slim --directory [parfiles] --vcf [vcf_pop_source] --sample [N] --bp [L] --fAM [min1-max1] --sigma [min2-max2] --compute_sumstats compute_sumstats.py --transform_vcf vcf_change.py --R [recombination rates] (--activate_X) (--activate_Y) --bpX [Lx] --bpY [Ly] --vcfX [vcf_pop_sources_X] --vcfY [vcf_pop_source_Y] --j [J] --asd_path [asd_path]</code> in the slamsim folder.
+<code>./SLAMSim.py --slim_sim slim_sim.slim --directory [parfiles] --vcf [vcf_pop_source] --sample [N] --bp [L] --fAM [min1-max1] --sigma [min2-max2] --compute_sumstats compute_sumstats.py --transform_vcf vcf_change.py --R [recombination rates] (--activate_X) (--activate_Y) --bpX [Lx] --bpY [Ly] --vcfX [vcf_pop_sources_X] --vcfY [vcf_pop_source_Y] --j [J] --asd_path [asd_path]</code> in the slamsim_Nsources folder.
 
 Arguments:
 -----------------------
@@ -42,10 +42,21 @@ The output will be summary statistic files .sumstat. For each simulations, they 
 Example with 5 populations:
 ---------------------
 <p><strong>Generate parameters files with generate_params.py:</strong></p>
-<p><code>./generate_params.py -S 10 -N 10 -P test --Ne 100/Con/100-100 --contrib_s1 default/Pulse/2/0.4-0.4/0-0.2 --contrib_s2 default/Pulse/2/0.6-0.6/0-0.2</code></p>
+<p><code>./generate_param_5pop.py -S 10 -N 10 -P test --N1 100/Con/100-100 --N2 100/Con/100-100 --N3 100/Con/100-100 --N4 100/Con/100-100 --N5 100/Con/100-100 --Nadm 100/Con/100-100 --contrib_s1 default/Pulse/1/0-0.2 --contrib_s2 default/Pulse/1/0-0.2 --contrib_s3 default/Pulse/1/0-0.2 --contrib_s4 default/Pulse/1/0-0.2 --contrib_s5 default/Pulse/1/0-0.2</code></p>
 <p>This should create a folder containing 10 folders (one for each simulation) containing .par files that are the parameters files. </p>
-<p><strong>Example with toy source vcf and default recombination rate (10⁻⁸):</strong></p>
+<p><strong>Extend parameters files to make them compatible (8 theoretical sources)</strong></p>
+<p><code>./extend_parfiles.py --path test</code></p>
+<p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes only:</strong></p>
 <p>You may need to modify authorizations for the scripts by running: <code>chmod +x *</code> in the slamsim folder.</p>
 <p>Then run the following in the slamsim folder:</p>
-<p><code>./SLAMSim.py --slim_sim slim_sim.slim --directory test/ --vcf VCF_toy.vcf --sample 50 --bp 1000000000 --fAM 0-2 --sigma 0-0.2 --compute_sumstats compute_sumstats.py --transform_vcf vcf_change.py --R default_rec_map --j 10 --asd_path [asd_path]</code></p>
+<p><code>./SLAMSim3.py --slim_sim slim_sim_N_sources.slim --R default_rec_map --directory test2/ --N_source 5 --vcf VCF_toy_5s_A.vcf --bp 1000000000 --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
 <p><em>Don't forget to add path to asd software. It should end with /asd/src/asd.</em></p>
+<p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes and X chromosome:</strong></p>
+<p><code>./SLAMSim3.py --slim_sim slim_sim_N_sources.slim --R default_rec_map2.txt --directory test2/ --N_source 5 --vcf VCF_toy_5s_A.vcf --activate_X --bp 1000000000 --bpX 500000000 --vcfX VCF_toy_5s_X.vcf --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
+
+
+
+
+
+
+
