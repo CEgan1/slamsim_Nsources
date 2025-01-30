@@ -49,10 +49,13 @@ Example with 5 populations:
 <p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes only:</strong></p>
 <p>You may need to modify authorizations for the scripts by running: <code>chmod +x *</code> in the slamsim folder.</p>
 <p>Then run the following in the slamsim folder:</p>
-<p><code>./SLAMSim3.py --slim_sim slim_sim_N_sources.slim --R default_rec_map --directory test2/ --N_source 5 --vcf VCF_toy_5s_A.vcf --bp 1000000000 --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
+<p><code>./SLAMSim3.py --slim_sim slim_sim_Npop.slim --R default_rec_map --directory test2/ --N_source 5 --vcf VCF_toy_5s_A.vcf --bp 1000000000 --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
 <p><em>Don't forget to add path to asd software. It should end with /asd/src/asd.</em></p>
 <p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes and X chromosome:</strong></p>
-<p><code>./SLAMSim3.py --slim_sim slim_sim_N_sources.slim --R default_rec_map2.txt --directory test2/ --N_source 5 --vcf VCF_toy_5s_A.vcf --activate_X --bp 1000000000 --bpX 500000000 --vcfX VCF_toy_5s_X.vcf --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
+<p><code>./SLAMSim3.py --slim_sim slim_sim_Npop.slim --R default_rec_map2.txt --directory test2/ --N_source 5 --vcf VCF_toy_5s_A.vcf --activate_X --bp 1000000000 --bpX 500000000 --vcfX VCF_toy_5s_X.vcf --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
+<p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes, X chromosome and Y chromosome:</strong></p>
+<p><code>./SLAMSim3.py --slim_sim slim_sim_Npop.slim --R default_rec_map2.txt --directory test2/ --N_source 5 --vcf VCF_toy_5sources.vcf --activate_X --activate_Y --bp 1000000000 --bpX 500000000 --bpY 500000000 --vcfX VCF_toy_5s_X.vcf --vcfY VCF_toy_5s_Y.vcf --fAM 0-5 --sigma 0-0.2 --j 10 --asd [asd-path]</code></p>
+
 
 
 
