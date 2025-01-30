@@ -1,0 +1,276 @@
+// Initialization of simulation parameters based on parfile
+initialize(){
+print('Starting initialization');
+// Activate Pedigree
+initializeSLiMOptions(keepPedigrees = T);
+//Activate sex separation, look at autosomes
+initializeSex("A");
+
+// Read parfile
+parameters = readCSV(parfile, colTypes = 'ffffffffffffffffff', sep = "\t").asMatrix();
+// Population size for source 1, source 2 and admixed population at all generations
+defineConstant('N1', asInteger(drop(parameters[,1])));
+defineConstant('N2', asInteger(drop(parameters[,2])));
+defineConstant('N3', asInteger(drop(parameters[,3])));
+defineConstant('N4', asInteger(drop(parameters[,4])));
+defineConstant('N5', asInteger(drop(parameters[,5])));
+defineConstant('N6', asInteger(drop(parameters[,6])));
+defineConstant('N7', asInteger(drop(parameters[,7])));
+defineConstant('N8', asInteger(drop(parameters[,8])));
+defineConstant('Nadm', asInteger(drop(parameters[,9])));
+// Migration rates (proportion of children in target pop born from parents of source pop) from source 1 to adm and from source 2 to adm at all generations (1 = founding)
+defineConstant('c1', drop(parameters[,10]));
+defineConstant('c2', drop(parameters[,11]));
+defineConstant('c3', drop(parameters[,12]));
+defineConstant('c4', drop(parameters[,13]));
+defineConstant('c5', drop(parameters[,14]));
+defineConstant('c6', drop(parameters[,15]));
+defineConstant('c7', drop(parameters[,16]));
+defineConstant('c8', drop(parameters[,17]));
+defineConstant('c', c(c1, c2, c3, c4, c5, c6, c7, c8));
+defineConstant('N', c(N1, N2, N3, N4, N5, N6, N7, N8));
+
+// Number of generations given by number of lines in parfile
+defineConstant('g', nrow(parameters));
+
+// Initialize mutation rate and type (no interest in neutral model)
+initializeMutationRate(0);
+// For autosomes
+initializeMutationType("m1", 0.5, "f", 0.0);
+// For X chromosomes
+initializeMutationType("m2", 0.5, "f", 0.0);
+// For Y chromosomes
+initializeMutationType("m3", 0.5, "f", 0.0);
+
+// Initialize autosome genomic sequence to modelize. (bp -> size in base pairs).
+initializeGenomicElementType("g1", m1, 1.0);
+initializeGenomicElement(g1, 0, bp-1);
+// Initialize X chromosome genomic sequence to modelize. (bpX -> size in base pairs).
+if (bpX>0){
+	initializeGenomicElementType("g2", m2, 1.0);
+	initializeGenomicElement(g2, bp, bp+bpX-1);
+}
+// Initialize Y chromosome genomic sequence to modelize. (bp -> size in base pairs).
+if(bpY>0){
+	initializeGenomicElementType("g3", m3, 1.0);
+	initializeGenomicElement(g3, bp+bpX, bp+bpX+bpY-1);
+}
+// Recombination map with two columns (first = recombination rates of segments, second = end bp of said segment). Modelize multiple chromosomes with 0.5 rec rate between two positions.
+recombination_map = readCSV(r, colTypes = 'ff', sep = "\t").asMatrix();
+// Get rates
+ratesF = c(drop(recombination_map[,1]));
+ratesM = c(drop(recombination_map[,1])[drop(recombination_map[,0]) <= bp]);
+if (bpX>0){
+	ratesM = c(ratesM, 0.5, 0);
+}
+if (bpY>0){
+	ratesF = c(ratesF, 0);
+}
+// Get ends
+endsF = c(asInteger(drop(recombination_map[,0])));
+endsM = c(asInteger(drop(recombination_map[,0])[drop(recombination_map[,0]) <= bp]));
+if (bpX>0){
+	endsM = c(endsM, bp+1, bp+bpX+bpY);
+}
+if (bpY>0){
+	endsF = c(endsF, bp+bpX+bpY);
+}
+
+// Initialize recombination rate
+initializeRecombinationRate(ratesF, endsF, sex = 'F');
+initializeRecombinationRate(ratesM, endsM, sex = 'M');
+}
+
+// Generation 1 = Founding of populations
+1 early() {
+// For userint
+print('Starting simulation...');
+// Create 2 source populations (1 and 2) and a admixed population (3). N1[1] and N2[2] must be numbers of p1 and p2 individuals in VCF input.
+count = 8;
+if (N1[0] > 0){
+	sim.addSubpop("p1", N1[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N2[0] > 0){
+	sim.addSubpop("p2", N2[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N3[0] > 0){
+	sim.addSubpop("p3", N3[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N4[0] > 0){
+	sim.addSubpop("p4", N4[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N5[0] > 0){
+	sim.addSubpop("p5", N5[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N6[0] > 0){
+	sim.addSubpop("p6", N6[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N7[0] > 0){
+	sim.addSubpop("p7", N7[0]);
+}
+else {
+	count = count - 1;
+}
+
+if (N8[0] > 0){
+	sim.addSubpop("p8", N8[0]);
+}
+else {
+	count = count - 1;
+}
+
+defineConstant('Npop', count);
+print('Interpreted ' + Npop + ' source populations.');
+
+//Copy mutations given in VCF file. It must contain all individuals from source populations (source populations must be in the right order, p1 then p2, then p3 etc. /!\). Females before males for all pop. Same number of males and females.
+sim.subpopulations.individuals.genomes.readFromVCF(vcf, m1);
+if (bpX > 0){
+	sim.subpopulations.individuals.genomes.readFromVCF(vcfX, m2);
+}
+if (bpY > 0){
+	sim.subpopulations.individuals.genomes.readFromVCF(vcfY, m3);
+}
+
+sim.addSubpop("p9", Nadm[0]);
+
+//Assign social tags in normal distributions with variance s (centered in 0 for one pop and 1 in the other)
+social = c(1,0,0,0,0,0,0,0);
+//Artificial individual tag for adm pop (useless for the rest)
+p9.individuals.tagF = rnorm(p9.individualCount, 0.5, sigma);
+t = 0;
+for (n in 0:(Npop-1)){
+	p = sim.subpopulations[n];
+	//Assign tag in source pop
+	p.individuals.tagF = rnorm(p.individualCount, social[n], sigma);
+	//Migration to adm pop
+	p9.setMigrationRates(p, c[t]);
+	t = t + g;
+}
+print('Initialization done');
+}
+
+
+// Define mate choice based on social id
+1: mateChoice(p9){
+return weights * ((PI/2) - atan(fAM*abs(individual.tagF - p9.individuals.tagF)));
+}
+
+// Assign social tags to offspring
+1: modifyChild() {
+// Mean of parent social tags
+Sm = mean(c(parent1.tagF, parent2.tagF));
+// Normal distribution with variance s
+child.tagF = rnorm(1, Sm, sigma);
+// No problem if no sexual chromosome
+if (bpX+bpY == 0){
+	return T;
+}
+// Make sure genome and sex are compatible
+isY = (child.genome1.countOfMutationsOfType(m3) + child.genome2.countOfMutationsOfType(m3) >= 1);
+twoX = (child.genome1.countOfMutationsOfType(m2) > 0 & child.genome2.countOfMutationsOfType(m2) > 0);
+// Check
+if (isY & twoX){
+	print('Error: two Xs and a Y, problem with sex assignment');
+}
+if (bpY==0){
+	// females should not have two X
+	if (child.sex == "F" & !twoX){
+		return F;
+	}
+	// males should have one X
+	if (child.sex == "M" &  twoX){
+		return F;
+	}
+}
+else {
+	// females should not have no Y/ two X
+	if (child.sex == "F" & isY){
+		return F;
+	}
+	// males should have Y/ one X
+	if (child.sex == "M" &  !isY){
+		return F;
+	}
+}
+return T;
+}
+
+1 late (){
+// To check evolution of social IDs repartition
+log = community.createLogFile("socialID_values", logInterval = 1);
+for (i in 1:p9.individualCount){
+	log.addCustomColumn('social_ID_' + asString(i), "p9.individuals[" + asString(i-1) + "].tagF;");
+	}
+}
+
+// For all generations left, modify populations sizes and migrations rate according to parfile and generation
+2:g early() {
+t = community.tick - 1;
+//Change adm pop size
+p9.setSubpopulationSize(Nadm[t]);
+for (n in 0:(Npop-1)){
+	p = sim.subpopulations[n];
+	//Change source pop size
+	p1.setSubpopulationSize(N[t]);
+	//Migration to adm pop
+	p9.setMigrationRates(p, c[t]);
+	t = t+g;
+}
+}
+
+// At the end of the simulation, output VCF with sources and admixed individuals (order /!\)
+g late() {
+// For user
+print('Simulation done. Creating output vcf');
+// Create a vector of unrelated (no grandparents in common) individuals
+all_pop = NULL;
+for (n in 0:Npop){
+	p = sim.subpopulations[n];
+	gp_p = c(0);
+	unrelated_p = NULL;
+	for (id in p.individuals){
+		gp = id.pedigreeGrandparentIDs;
+		if (all(gp[0] != gp_p) & all(gp[1] != gp_p) & all(gp[2] != gp_p) & all(gp[3] != gp_p)){
+			gp_p = c(gp_p, gp);
+			unrelated_p = c(unrelated_p, id);
+			}
+		}
+	unrelated_f = unrelated_p[unrelated_p.sex == 'F'];
+	unrelated_m = unrelated_p[unrelated_p.sex == 'M'];
+	// If there isn't enough unrelated individuals, the sampling is random in the subpopulations
+	if (length(unrelated_m) < asInteger(sample_size/2) | length(unrelated_f) < asInteger(sample_size/2)){
+		print("Warning! Not enough unrelated individuals in p" + n + " : proceeds to sample randomly.");
+		all_pop = c(all_pop, p.sampleIndividuals(asInteger(sample_size/2), sex ='F').genomes, p.sampleIndividuals(asInteger(sample_size/2), sex = 'M').genomes);
+	}
+	// Otherwise, a given number of unrelated individuals are sampled
+	else {
+		print("Sampling unrelated individuals in p" + n);
+		all_pop = c(all_pop, sample(unrelated_p[sex == 'F'], asInteger(sample_size/2)).genomes,  sample(unrelated_p[sex == 'M'], asInteger(sample_size/2)).genomes);
+	}
+}
+all_pop.outputVCF(filePath = vcf_out);
+}
