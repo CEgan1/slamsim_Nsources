@@ -8,7 +8,7 @@ vcf: VCF_toy_5s_A.vcf
 fAM: 0-5
 sigma: 0-0.5
 RecombinationMap: default_rec_map
-ASDpath: /home/coailinn/asd/src/asd
+ASDpath: [path]/asd/src/asd
 activateX: YES
 activateY: NO
 vcfX: VCF_toy_5s_X.vcf
