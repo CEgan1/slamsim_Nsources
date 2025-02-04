@@ -35,7 +35,6 @@ Arguments are passed through the parfile:
 <li>activateY is YES to simulate an Y chromosome and NO (or anything else) otherwise</li>
 <li>bpX is the length of the X chromosome (in bp). Optional argument, delete the line if there is no X.</li>
 <li>bpX is the length of the Y chromosome (in bp). Optional argument, delete the line if there is no Y.</li>
-<li>[N] is the number of individuals to sample to compute the summary statistics</li>
 
 Output
 ---------------------
