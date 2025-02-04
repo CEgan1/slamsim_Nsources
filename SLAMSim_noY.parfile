@@ -7,7 +7,7 @@ bp: 1000000000
 vcf: VCF_toy_5s_A.vcf
 fAM: 0-5
 sigma: 0-0.5
-RecombinationMap: default_rec_map
+RecombinationMap: default_rec_map2
 ASDpath: [path]/asd/src/asd
 activateX: YES
 activateY: NO
