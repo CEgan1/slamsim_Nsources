@@ -50,16 +50,8 @@ Example with 5 populations:
 <p>You may need to modify authorizations for the scripts by running: <code>chmod +x *</code> in the slamsim folder.</p>
 <p><em>Don't forget to add path to asd software in the parfiles. It should end with /asd/src/asd.</em></p>
 <p>Then run the following in the slamsim folder:</p>
-<p><code>./SLAMSim.py --p SLAMSim_autosomes.pafile</em></p>
+<p><code>./SLAMSim.py --p SLAMSim_autosomes.pafile</code></p>
 <p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes and X chromosome:</strong></p>
-<p><code>./SLAMSim.py --p SLAMSim_noY.pafile</code></p>
+<p><code>./SLAMSim.py --p SLAMSim_noY.parfile</code></p>
 <p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes, X chromosome and Y chromosome:</strong></p>
-<p><code>./SLAMSim.py --p SLAMSim.pafile</code></p>
-
-
-
-
-
-
-
-
+<p><code>./SLAMSim.py --p SLAMSim.parfile</code></p>
