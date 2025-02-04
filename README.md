@@ -15,7 +15,7 @@ Required softwares and packages:
 
 To launch script, run :
 -----------------------
-<code>./SLAMSim.py --slim_sim slim_sim.slim --directory [parfiles] --vcf [vcf_pop_source] --sample [N] --bp [L] --fAM [min1-max1] --sigma [min2-max2] --compute_sumstats compute_sumstats.py --transform_vcf vcf_change.py --R [recombination rates] (--activate_X) (--activate_Y) --bpX [Lx] --bpY [Ly] --vcfX [vcf_pop_sources_X] --vcfY [vcf_pop_source_Y] --j [J] --asd_path [asd_path]</code> in the slamsim_Nsources folder.
+<code>./SLAMSim.py --p SLAMSim.parfile</code> in the slamsim_Nsources folder.
 
 Arguments:
 -----------------------
