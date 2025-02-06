@@ -1,0 +1,12 @@
+#############STEP 1: make extended parameters#################
+./extend_parfiles.py test2/
+
+#############STEP 2: simulation with no sexual chromosomes#################
+./SLAMSim3.py --slim_sim run_simulations_assortative_mating_several_sources.slim --R default_rec_map --directory test2/ --N_source 5 --vcf VCF_toy_5sources.vcf --bp 1000000000 --fAM 0-5 --sigma 0-0.2 --j 10 --asd /home/coailinn/asd/src/asd
+
+#############STEP 3: simulation with X chromosome#################
+./SLAMSim3.py --slim_sim run_simulations_assortative_mating_several_sources.slim --R default_rec_map2.txt --directory test2/ --N_source 5 --vcf VCF_toy_5sources.vcf --activate_X --bp 1000000000 --bpX 500000000 --vcfX VCF_toy_5s_X.vcf --fAM 0-5 --sigma 0-0.2 --j 10 --asd /home/coailinn/asd/src/asd
+
+#############STEP 4: simulation with X and Y chromosomes#################
+./SLAMSim3.py --slim_sim run_simulations_assortative_mating_several_sources.slim --R default_rec_map2.txt --directory test2/ --N_source 5 --vcf VCF_toy_5sources.vcf --activate_X --activate_Y --bp 1000000000 --bpX 500000000 --bpY 500000000 --vcfX VCF_toy_5s_X.vcf --vcfY VCF_toy_5s_Y.vcf --fAM 0-5 --sigma 0-0.2 --j 10 --asd /home/coailinn/asd/src/asd
+
