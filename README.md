@@ -41,9 +41,9 @@ Output
 The output will be summary statistic files .sumstat. For each simulations, they will be found in the same folders as the parameters files. For each simulations, the social_ID file recalls the tag used by slim simulations for all individuals at each generation in the admixed population. There will also be a fAM_file, recalling the value of fAM for each simulation and a sigma_file recalling the value of sigma for each simulation. 
 (As of now, summary statistics are computed on autosomes only...)
 
-Example with 5 populations:
+Example with 3 populations:
 ---------------------
-<p><strong>Extend parameters files to make them compatible (8 theoretical sources)</strong></p>
+<p><strong>Extend parameters files to make them compatible (up to 4 theoretical sources)</strong></p>
 <p><code>./extend_parfiles.py --path test/</code></p>
 <p><strong>Example with toy source vcf and default recombination rate (10⁻⁸), autosomes only:</strong></p>
 <p>You may need to modify authorizations for the scripts by running: <code>chmod +x *</code> in the slamsim folder.</p>
