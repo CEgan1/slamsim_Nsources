@@ -28,7 +28,7 @@ Arguments are passed through the parfile:
 <li>fAM is the range of fAM to try in simulations. Format is min-max</li>
 <li>sigma is the range of sigma to try in simulations. Format is min-max</li>
 <li>RecombinationMap is a recombination rate map (two columns, one containing breakpoints and the other containing recombination rate between this breakpoint and the previous one) for all autosomes and X chromosome if applicable</li>
-<li>ASDpath is the path to <a href="https://github.com/szpiech/asd/blob/master/README">asd software</li>
+<li>ASDpath is the path to <a href="https://github.com/szpiech/asd/blob/master/README">asd software</a> (on user's computer)</li>
 <li>activateX is YES to simulate an X chromosome and NO (or anything else) otherwise</li>
 <li>activateY is YES to simulate an Y chromosome and NO (or anything else) otherwise</li>
 <li>bpX is the length of the X chromosome (in bp). Optional argument, delete the line if there is no X.</li>
