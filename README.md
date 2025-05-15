@@ -1,4 +1,4 @@
-<p>Works similarly to slamsim for two populations but can take up to 8 source populations. Also added possibility to simulate sexual chromosomes.</p>
+<p>Works similarly to slamsim for two populations but can take up to 4 source populations. Also added possibility to simulate sexual chromosomes.</p>
 
 Required softwares and packages:
 -----------------------
