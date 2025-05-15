@@ -1,5 +1,3 @@
-<p>Works similarly to slamsim for two populations but can take up to 4 source populations. Also added possibility to simulate sexual chromosomes.</p>
-
 Required softwares and packages:
 -----------------------
 <p><strong><a href="https://messerlab.org/slim/">SLiM</a> </strong></p>
