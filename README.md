@@ -34,6 +34,14 @@ Arguments are passed through the parfile:
 <li>bpX is the length of the X chromosome (in bp). Optional argument, delete the line if there is no X.</li>
 <li>bpX is the length of the Y chromosome (in bp). Optional argument, delete the line if there is no Y.</li>
 
+SLiM Inputs
+---------------------
+<p>The simulation inputs include population sizes and genetic contributions of the source populations to the admixed populations at each generation.</p>
+<li>A column named g and contains the generation number.</li>
+<li>Columns named N1, N2 etc. containing the population sizes of each source populations at each generations.</li>
+<li>A column named Nadm, containing the admixed population's sizes at each generation.</li>
+<li>Columns named c1, c2, etc. containing the source populations' contributions to the admixed population at each generation. </li>
+
 Output
 ---------------------
 The output will be summary statistic files .sumstat. For each simulations, they will be found in the same folders as the parameters files. For each simulations, the social_ID file recalls the tag used by slim simulations for all individuals at each generation in the admixed population. There will also be a fAM_file, recalling the value of fAM for each simulation and a sigma_file recalling the value of sigma for each simulation. 
