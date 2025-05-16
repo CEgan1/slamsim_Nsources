@@ -17,7 +17,9 @@ To launch script, run :
 
 Arguments are passed through the parfile:
 -----------------------
-<p>Format of the parfile is illustrated in the example parfile SLAMSim.parfile. Put ': ' between parameter name and parameter value. Details:</p>
+<p>Format of the parfile is illustrated in the example parfile SLAMSim.parfile. Put ': ' between parameter name and parameter value.</p>
+
+<p>Details:</p>
 <li>SLiMSimulation is the path to the SLiM script</li>
 <li>SimulationParameters is the path to the folder where SLiM inputs are</li>
 <li>ParallelJobs is the number of jobs to run in parallel</li>
